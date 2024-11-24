@@ -21,7 +21,7 @@ function RouteComponent() {
 	const logIn = useMutation({
 		mutationFn: ({ email, password }: { email: string; password: string }) => api.logIn(email, password),
 		onSuccess: () => {
-			location.href = "/";
+			// location.href = "/";
 		},
 		onError: (err) => {
 			alert(err.message);
@@ -29,7 +29,7 @@ function RouteComponent() {
 	});
 	return (
 		<div className="grid place-content-center gap-2">
-			<h1 className="text-center text-xl font-bold">Log In</h1>
+			<h1 className="text-center font-bold text-xl">Log In</h1>
 			<form
 				className="flex flex-col gap-4 rounded-md border-2 bg-neutral-100 p-4"
 				onSubmit={async (e) => {
