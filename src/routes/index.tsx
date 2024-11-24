@@ -8,12 +8,12 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
-	const { data: products } = useQuery({
+	const { data: products,isLoading } = useQuery({
 		queryKey: ["products"],
 		queryFn: api.getProducts,
 	});
 
-	const { data: cart, isLoading } = useQuery({
+	const { data: cart } = useQuery({
 		queryKey: ["cart"],
 		queryFn: api.getCart,
 	});

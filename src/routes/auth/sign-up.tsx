@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import { api } from "../../utils/api";
 
-export const Route = createFileRoute("/auth/log-in")({
+export const Route = createFileRoute("/auth/sign-up")({
 	component: RouteComponent,
 	loader: async () => {
 		try {
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/auth/log-in")({
 });
 
 function RouteComponent() {
-	const logIn = useMutation({
-		mutationFn: ({ email, password }: { email: string; password: string }) => api.logIn(email, password),
+	const signUp = useMutation({
+		mutationFn: ({ email, password }: { email: string; password: string }) => api.signUp(email, password),
 		onSuccess: () => {
 			location.href = "/";
 		},
@@ -29,7 +29,7 @@ function RouteComponent() {
 	});
 	return (
 		<div className="grid place-content-center gap-2">
-			<h1 className="text-center text-xl font-bold">Log In</h1>
+			<h1 className="text-center text-xl font-bold">Sign Up</h1>
 			<form
 				className="flex flex-col gap-4 rounded-md border-2 bg-neutral-100 p-4"
 				onSubmit={async (e) => {
@@ -37,7 +37,10 @@ function RouteComponent() {
 					const form = new FormData(e.currentTarget);
 					const email = form.get("email");
 					const password = form.get("password");
-					logIn.mutate({ email: email?.toString()!, password: password?.toString()! });
+					signUp.mutate({
+						email: email?.toString()!,
+						password: password?.toString()!,
+					});
 				}}
 			>
 				<label className="flex w-80 flex-col gap-2">
@@ -49,13 +52,13 @@ function RouteComponent() {
 					<input className="rounded border p-2" type="password" name="password" autoComplete="on" required />
 				</label>
 				<button className="rounded bg-black p-1 font-semibold text-white" type="submit">
-					{logIn.isPending ? "Logging in..." : "Log In"}
+					{signUp.isPending ? "Signing up..." : "Sign up"}
 				</button>
 			</form>
 			<p>
-				Don't have an account?&nbsp;
-				<Link to="/auth/sign-up" className="underline">
-					Sign up
+				Already have an account?&nbsp;
+				<Link to="/auth/log-in" className="underline">
+					Log in
 				</Link>
 			</p>
 		</div>

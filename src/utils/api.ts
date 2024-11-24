@@ -52,15 +52,32 @@ export const api = {
 		const data = await res.json();
 		return productSchema.array().parse(data?.products);
 	},
-	sendLogInEmail: async (email: string) => {
+	signUp: async (email: string, password: string) => {
+		const res = await fetchApi("/auth/sign-up", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email, password }),
+		});
+		const data = await res.json();
+		if (res.status !== 201) {
+			throw new Error(data?.message);
+		}
+		return data;
+	},
+	logIn: async (email: string, password: string) => {
 		const res = await fetchApi("/auth/log-in", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ email }),
+			body: JSON.stringify({ email, password }),
 		});
 		const data = await res.json();
+		if (res.status !== 200) {
+			throw new Error(data?.message);
+		}
 		return data;
 	},
 	logOut: async () => {

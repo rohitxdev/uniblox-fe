@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { NavBar } from "../components/nav-bar";
 
 export const Route = createRootRoute({
@@ -16,7 +15,6 @@ function RootComponent() {
 				<NavBar />
 				<Outlet />
 			</div>
-			{import.meta.env.DEV && <TanStackRouterDevtools position="bottom-right" />}
 		</QueryClientProvider>
 	);
 }
