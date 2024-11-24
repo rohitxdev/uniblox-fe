@@ -7,6 +7,7 @@ export const NavBar = () => {
 	const { data: user, isLoading } = useQuery({
 		queryKey: ["user"],
 		queryFn: api.getMe,
+		retry: false,
 	});
 
 	if (isLoading) return null;
