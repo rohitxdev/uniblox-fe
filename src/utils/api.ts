@@ -57,9 +57,8 @@ export const api = {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Host: location.host,
 			},
-			body: JSON.stringify({ email }),
+			body: JSON.stringify({ email, host: location.host }),
 		});
 		const data = await res.json();
 		return data;
