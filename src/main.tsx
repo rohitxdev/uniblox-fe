@@ -16,6 +16,12 @@ declare module "@tanstack/react-router" {
 	}
 }
 
+declare global {
+	interface ImportMeta {
+		readonly env: Record<string, string | undefined>;
+	}
+}
+
 const rootElement = document.getElementById("app")!;
 
 if (!rootElement.innerHTML) {
