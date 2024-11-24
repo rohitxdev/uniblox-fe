@@ -16,7 +16,7 @@ function RootComponent() {
 				<NavBar />
 				<Outlet />
 			</div>
-			<TanStackRouterDevtools position="bottom-right" />
+			{import.meta.env.DEV && <TanStackRouterDevtools position="bottom-right" />}
 		</QueryClientProvider>
 	);
 }
