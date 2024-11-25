@@ -8,7 +8,7 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
-	const { data: products,isLoading } = useQuery({
+	const { data: products, isLoading } = useQuery({
 		queryKey: ["products"],
 		queryFn: api.getProducts,
 	});
@@ -21,7 +21,7 @@ function RouteComponent() {
 	return (
 		<div className="flex flex-col gap-4">
 			<h1 className="font-bold text-3xl">Products</h1>
-			<div className="flex gap-2">
+			<div className="flex flex-wrap gap-2 max-md:justify-center">
 				{isLoading
 					? "Loading..."
 					: products?.map((product) => (

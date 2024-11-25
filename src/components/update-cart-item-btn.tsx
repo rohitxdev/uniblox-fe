@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient,useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
 import { api } from "../utils/api";
@@ -77,26 +77,33 @@ export const UpdateCartItemBtn = ({ productId, quantity, quantityLeft }: UpdateC
 		});
 	};
 
-	const isLoading = addToCart.isPending || updateCartItemQuantity.isPending || deleteCartItem.isPending || user.isLoading;
+	const isLoading = addToCart.isPending || updateCartItemQuantity.isPending || deleteCartItem.isPending;
 
 	return (
 		<div className="flex justify-evenly rounded bg-black p-1 font-semibold text-white">
-			{value === 0 ? (
+			{!user.isLoading && !user.data ? (
+				<button type="button">Log In to add to cart</button>
+			) : value === 0 ? (
 				<button
 					onClick={() => addToCart.mutate(productId)}
 					type="button"
-					disabled={quantityLeft === 0 || isLoading}
+					disabled={quantityLeft === 0 || isLoading || !user.data}
 					className="disabled:opacity-50"
 				>
-					{user.data?"Log In to add to cart":isLoading ? "Adding..." : "Add to cart"}
+					{isLoading ? "Adding..." : "Add to cart"}
 				</button>
 			) : (
 				<>
-					<button type="button" onClick={handleDecrease} disabled={isLoading} className="disabled:opacity-50">
+					<button type="button" onClick={handleDecrease} disabled={isLoading || !user.data} className="disabled:opacity-50">
 						<LuMinus />
 					</button>
 					<p>{value}</p>
-					<button type="button" onClick={handleIncrease} disabled={quantityLeft <= value || isLoading} className="disabled:opacity-50">
+					<button
+						type="button"
+						onClick={handleIncrease}
+						disabled={quantityLeft <= value || isLoading || !user.data}
+						className="disabled:opacity-50"
+					>
 						<LuPlus />
 					</button>
 				</>

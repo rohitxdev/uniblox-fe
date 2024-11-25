@@ -33,6 +33,18 @@ const couponSchema = z.object({
 	userId: z.number(),
 	code: z.string(),
 	discountPercent: z.number(),
+	isUsed: z.boolean(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+});
+
+const orderSchema = z.object({
+	id: z.number(),
+	userId: z.number(),
+	status: z.enum(["pending", "processing", "completed"]),
+	totalAmount: z.number(),
+	discountedAmount: z.number(),
+	couponId: z.number().optional(),
 	createdAt: z.coerce.date(),
 	updatedAt: z.coerce.date(),
 });
@@ -132,5 +144,21 @@ export const api = {
 		const data = await res.json();
 		const user = userSchema.parse(data);
 		return user.role === "admin";
+	},
+	getAllOrders: async (page: number, pageSize: number) => {
+		const searchParams = new URLSearchParams();
+		searchParams.set("page", page.toString());
+		searchParams.set("pageSize", pageSize.toString());
+		const res = await fetchApi(`/_/orders?${searchParams.toString()}`);
+		const data = await res.json();
+		return orderSchema.array().parse(data?.orders);
+	},
+	getAllCoupons: async (page: number, pageSize: number) => {
+		const searchParams = new URLSearchParams();
+		searchParams.set("page", page.toString());
+		searchParams.set("pageSize", pageSize.toString());
+		const res = await fetchApi(`/_/coupons?${searchParams.toString()}`);
+		const data = await res.json();
+		return couponSchema.array().parse(data?.coupons);
 	},
 } as const;
