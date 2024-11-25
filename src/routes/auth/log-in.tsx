@@ -21,7 +21,7 @@ function RouteComponent() {
 	const logIn = useMutation({
 		mutationFn: ({ email, password }: { email: string; password: string }) => api.logIn(email, password),
 		onSuccess: () => {
-			// location.href = "/";
+			location.href = "/";
 		},
 		onError: (err) => {
 			alert(err.message);

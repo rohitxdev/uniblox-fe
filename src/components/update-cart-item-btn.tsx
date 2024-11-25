@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient,useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
 import { api } from "../utils/api";
@@ -45,6 +45,12 @@ export const UpdateCartItemBtn = ({ productId, quantity, quantityLeft }: UpdateC
 		},
 	});
 
+	const user = useQuery({
+		queryKey: ["user"],
+		queryFn: api.getMe,
+		retry: false,
+	});
+
 	useEffect(() => {
 		setValue(quantity);
 	}, [quantity]);
@@ -71,7 +77,7 @@ export const UpdateCartItemBtn = ({ productId, quantity, quantityLeft }: UpdateC
 		});
 	};
 
-	const isLoading = addToCart.isPending || updateCartItemQuantity.isPending || deleteCartItem.isPending;
+	const isLoading = addToCart.isPending || updateCartItemQuantity.isPending || deleteCartItem.isPending || user.isLoading;
 
 	return (
 		<div className="flex justify-evenly rounded bg-black p-1 font-semibold text-white">
@@ -82,7 +88,7 @@ export const UpdateCartItemBtn = ({ productId, quantity, quantityLeft }: UpdateC
 					disabled={quantityLeft === 0 || isLoading}
 					className="disabled:opacity-50"
 				>
-					{isLoading ? "Adding..." : "Add to cart"}
+					{user.data?"Log In to add to cart":isLoading ? "Adding..." : "Add to cart"}
 				</button>
 			) : (
 				<>

@@ -26,6 +26,7 @@ export const Checkout = () => {
 			queryClient.invalidateQueries({ queryKey: ["cart"] });
 			queryClient.invalidateQueries({ queryKey: ["products"] });
 			alert("Order created successfully");
+			location.href = "/";
 		},
 	});
 
