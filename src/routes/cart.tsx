@@ -35,7 +35,7 @@ function RouteComponent() {
 		<div className="flex flex-col gap-4">
 			<h1 className="font-bold text-3xl">Cart</h1>
 			<div className="flex flex-wrap justify-between gap-4">
-				<div className="flex flex-wrap justify-center gap-2">
+				<div className="flex flex-wrap justify-center gap-2 max-md:justify-center">
 					{isLoading
 						? "Loading..."
 						: cartWithProducts?.map((item) => (
