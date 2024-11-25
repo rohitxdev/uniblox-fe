@@ -102,6 +102,7 @@ export const Checkout = () => {
 							<p>{item.discountPercent}% off</p>
 						</div>
 					))}
+					<p className="hidden first:inline">No coupons available</p>
 				</div>
 			</div>
 		</div>
