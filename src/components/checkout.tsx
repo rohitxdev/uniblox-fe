@@ -44,7 +44,7 @@ export const Checkout = () => {
 	const [couponInput, setCouponInput] = useState("");
 
 	return (
-		<div className="flex flex-col gap-2 max-md:mx-auto">
+		<div className="flex flex-col gap-4 max-md:mx-auto">
 			<p className="text-xl">
 				Total Price: <span className="font-bold">${totalPrice}</span>
 			</p>
@@ -102,7 +102,7 @@ export const Checkout = () => {
 							<p>{item.discountPercent}% off</p>
 						</div>
 					))}
-					<p className="hidden first:inline">No coupons available</p>
+					<p className="hidden text-center text-neutral-500 first:inline">No coupons available</p>
 				</div>
 			</div>
 		</div>
